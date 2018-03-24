@@ -1,7 +1,8 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from nomadgram.users import models as user_models
 
-# Create your models here.
+@python_2_unicode_compatible
 class TimeStampeModel(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -10,7 +11,7 @@ class TimeStampeModel(models.Model):
     class Meta:
         abstract = True
 
-
+@python_2_unicode_compatible
 class Image(TimeStampeModel):
 
     """ Image Model """
@@ -20,7 +21,10 @@ class Image(TimeStampeModel):
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User, null=True, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return '{} - {}'.format(self.location, self.caption)
 
+@python_2_unicode_compatible
 class Comment(TimeStampeModel):
 
     """ Comment Model """
@@ -30,9 +34,16 @@ class Comment(TimeStampeModel):
     image = models.ForeignKey(Image, null=True, on_delete=models.PROTECT)
     creator = models.ForeignKey(user_models.User, null=True, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return self.message
+
+@python_2_unicode_compatible
 class Like(TimeStampeModel):
 
     """ Like Model """
 
     creator = models.ForeignKey(user_models.User, null=True, on_delete=models.PROTECT)
     image = models.ForeignKey(Image, null=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return 'User: {} - Image Caption: {}'.format(self.creator.username, self.image.caption)
