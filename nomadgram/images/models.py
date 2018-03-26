@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from taggit.managers import TaggableManager
 from nomadgram.users import models as user_models
 
 @python_2_unicode_compatible
@@ -20,10 +21,15 @@ class Image(TimeStampeModel):
     location = models.CharField(max_length=140)
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User, null=True, on_delete=models.PROTECT, related_name='images')
+    tags = TaggableManager()
 
     @property
     def like_count(self):
         return self.likes.all().count()
+
+    @property
+    def comment_count(self):
+        return self.comments.all().count()
 
     def __str__(self):
         return '{} - {}'.format(self.location, self.caption)
