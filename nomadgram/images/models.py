@@ -20,7 +20,7 @@ class Image(TimeStampeModel):
     file = models.ImageField()
     location = models.CharField(max_length=140)
     caption = models.TextField()
-    creator = models.ForeignKey(user_models.User, null=True, on_delete=models.PROTECT, related_name='images')
+    creator = models.ForeignKey(user_models.User, null=True, on_delete=models.CASCADE, related_name='images')
     tags = TaggableManager()
 
     @property
@@ -43,8 +43,8 @@ class Comment(TimeStampeModel):
     """ Comment Model """
 
     message = models.TextField()
-    creator = models.ForeignKey(user_models.User, null=True, on_delete=models.PROTECT)
-    image = models.ForeignKey(Image, null=True, on_delete=models.PROTECT, related_name='comments')
+    creator = models.ForeignKey(user_models.User, null=True, on_delete=models.CASCADE)
+    image = models.ForeignKey(Image, null=True, on_delete=models.CASCADE, related_name='comments')
 
     def __str__(self):
         return self.message
@@ -54,8 +54,8 @@ class Like(TimeStampeModel):
 
     """ Like Model """
 
-    creator = models.ForeignKey(user_models.User, null=True, on_delete=models.PROTECT)
-    image = models.ForeignKey(Image, null=True, on_delete=models.PROTECT, related_name='likes')
+    creator = models.ForeignKey(user_models.User, null=True, on_delete=models.CASCADE)
+    image = models.ForeignKey(Image, null=True, on_delete=models.CASCADE, related_name='likes')
 
     def __str__(self):
         return 'User: {} - Image Caption: {}'.format(self.creator.username, self.image.caption)

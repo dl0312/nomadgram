@@ -26,6 +26,8 @@ class User(AbstractUser):
     followers = models.ManyToManyField("self", blank=True)
     following = models.ManyToManyField("self", blank=True)
 
+    
+
     def __str__(self):
         return self.username
 

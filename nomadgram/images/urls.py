@@ -10,17 +10,27 @@ urlpatterns = [
         name = 'feed',
     ),
     url(
-        regex = r'^(?P<image_id>[0-9]+)/like/',
+        regex = r'^(?P<image_id>[0-9]+)/$',
+        view = views.ImageDetail.as_view(),
+        name = 'detail_image',
+    ),
+    url(
+        regex = r'^(?P<image_id>[0-9]+)/likes/',
         view = views.LikeImage.as_view(),
         name = 'like_image',
     ),
     url(
-        regex = r'^(?P<image_id>[0-9]+)/unlike/',
+        regex = r'^(?P<image_id>[0-9]+)/unlikes/',
         view = views.UnLikeImage.as_view(),
         name = 'unlike_image',
     ),
     url(
-        regex = r'^(?P<image_id>[0-9]+)/comment/',
+        regex = r'^(?P<image_id>[0-9]+)/comments/(?P<comment_id>[0-9]+)/$',
+        view = views.ModerateComment.as_view(),
+        name = 'moderate_comment',
+    ),
+    url(
+        regex = r'^(?P<image_id>[0-9]+)/comments/',
         view = views.CommentOnImage.as_view(),
         name = 'comment_image',
     ),
