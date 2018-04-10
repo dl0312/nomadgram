@@ -30,12 +30,10 @@ const Navigation = (props, context) => (
           </Link>
         </div>
         <div className={styles.navIcon}>
-          <Link to="/explore">
-            <Ionicon icon="ios-heart-outline" fontSize="28px" color="black" />
-          </Link>
+          <Ionicon icon="ios-heart-outline" fontSize="28px" color="black" />
         </div>
         <div className={styles.navIcon}>
-          <Link to="/explore">
+          <Link to="/profile">
             <Ionicon icon="ios-person-outline" fontSize="28px" color="black" />
           </Link>
         </div>
